@@ -20,3 +20,14 @@ body {
     display: flex;
     justify-content: space-around;
 }
+
+.App_logo {
+    margin: 10px auto;
+    padding: 20px 0;
+    width: 144px;
+  }
+  
+.App_logo img {
+    object-fit: cover;
+    width: 100%;
+  }

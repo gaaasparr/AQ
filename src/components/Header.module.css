@@ -1,0 +1,17 @@
+.gf_header {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .gf_header {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .gf_header {
+    text-decoration: underline;
+  }
+  
+  .gf_header {
+    margin: 0 12px;
+  }

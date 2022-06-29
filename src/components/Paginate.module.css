@@ -1,0 +1,8 @@
+.ul_container{
+    list-style: none;
+    display: grid;
+    justify-content: center;
+    display: flex;
+    grid-gap: 0.5%;
+    padding: 30px;
+}

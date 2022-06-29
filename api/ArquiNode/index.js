@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 
 const getInfoAPI = async () => {
 	let productos = [];
-	let page = [1016, 1017, 1039];
+	let page = [1016, 1017, 1039, 1040, 1045, 1051];
 
 	for (let i = 0; i <= page.length; i++) {
 		const apiUrl = await axios.get(

@@ -1,4 +1,5 @@
 import React from "react";
+import s from './Paginate.module.css';
 
 export default function Paginate({productsPerPage, productos, paginate}) {
     
@@ -9,7 +10,7 @@ export default function Paginate({productsPerPage, productos, paginate}) {
 
     return( 
         <nav>
-            <ul>
+            <ul className={s.ul_container}>
                 {pageNumbers && pageNumbers.map(num => (
                     <li key={num}><button onClick={() => paginate(num)}>{num}</button></li>
                 ))}
