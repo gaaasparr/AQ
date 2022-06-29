@@ -1,0 +1,22 @@
+body {
+    background-color: #eaebea;
+}
+
+.div_container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.5%;
+    padding: 30px;
+}
+
+.div_container_items{
+    margin: 5px;
+    background-color: #fef059;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.div_container_items_description{
+    display: flex;
+    justify-content: space-around;
+}

@@ -1,27 +1,14 @@
-
-import React, {useState} from 'react';
-import axios from 'axios';
+import React from 'react';
 import './App.css';
-
-async function traerProductos () {
-  const prod = await axios.get('http://localhost:3001/')
-  return prod.data
-}
+import Home from './components/Home';
 
 function App() {
-  const [productos, setProductos] = useState(traerProductos)
-  console.log(productos);
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        {
-          
-        }
-        
-      </header>
-    </div>
-  );
+	return (
+		<div className='App'>
+			<header className='App-header'>hola</header>
+			<Home />
+		</div>
+	);
 }
 
 export default App;
