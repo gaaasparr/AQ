@@ -1,15 +1,19 @@
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, BrowserRouter, Routes } from 'react-router-dom';
 import './App.css';
-import Login from './pages/Login'
+import Login from './pages/Login';
 import Home from './components/Home';
-
 
 function App() {
 	return (
-		<div className='App'>
-					
-		</div>
+		<BrowserRouter>
+			<div className='App'>
+				<Routes>
+					<Route exact path='/' element={<Login />} />
+					<Route exact path='/home' element={<Home />} />
+				</Routes>
+			</div>
+		</BrowserRouter>
 	);
 }
 
