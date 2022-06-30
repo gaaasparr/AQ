@@ -10,7 +10,9 @@ function Cart() {
     useEffect(() => {
         async function getUserProducts () {
             const response = await axios.get('http://localhost:3001/users'); //me traigo todos los usuarios
-            const filtro = response.data.findIndex((user) => user.id == cookies.get('id'));
+            let filtro = response.data.findIndex((user) => user.id == cookies.get('id'));
+            filtro = filtro + 1; 
+            console.log(filtro)
             const userProducts = response.data[filtro].products;
             setProducts(userProducts);
         }
@@ -20,7 +22,7 @@ function Cart() {
     async function handleBuy() {
         alert('Compra realizada con exito');
         const user = {
-            id: cookies.get('id'),
+            id: parseInt(cookies.get('id')) + 1,
         }
         console.log(user)
         axios.post('http://localhost:3001/users', {user})

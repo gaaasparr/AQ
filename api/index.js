@@ -53,7 +53,7 @@ const getInfoAPI = async () => {
 	return productosFormat;
 };
 
-let users = [
+var users = [
 	{
 		id: 1,
 		username: 'gaspar',
@@ -99,7 +99,7 @@ app.get('/users', async (request, response) => {
 
 app.post('/users', async (request, response) => {
 	try {
-		//console.log(request.body);
+		console.log(request.body);
 		const { user } = request.body;
 		if (user.product) {
 			console.log(user);
@@ -110,12 +110,12 @@ app.post('/users', async (request, response) => {
 			console.log(userfound);
 			response.send('producto agregado');
 		} else {
-			users = {
-				...users, //recupero el resto de los usuarios
-				[user.id]: {
-					id: user.id,
-					products: [],
-				}, //piso los productos con un array vacio
+			console.log(user);
+			const filtro = users.findIndex((e) => e.id == user.id);
+			users[filtro] = {
+				//reemplazo el usuario por el nuevo usuario, con todo lo que tenia antes y el array de products vacio
+				...users[filtro],
+				products: [],
 			};
 			console.log(users);
 			response.send('compra realizada y carrito limpio');

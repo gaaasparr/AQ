@@ -56,7 +56,7 @@ export default function Home() {
     function handleCart (id, product){
         console.log(id, product)
         const user = {
-            id: cookies.get('id'),
+            id: parseInt(cookies.get('id')) + 1,
             product: {
                 id: id,
                 title: product,
