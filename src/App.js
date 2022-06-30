@@ -1,19 +1,23 @@
 import React from 'react';
 import { Link, Route, BrowserRouter, Routes } from 'react-router-dom';
 import './App.css';
-import Login from './pages/Login';
+import Login from './components/Login';
 import Home from './components/Home';
+
+import {UserContextProvider} from './contexts/UserContext'
 
 function App() {
 	return (
-		<BrowserRouter>
-			<div className='App'>
-				<Routes>
-					<Route exact path='/' element={<Login />} />
-					<Route exact path='/home' element={<Home />} />
-				</Routes>
-			</div>
-		</BrowserRouter>
+		<UserContextProvider>
+			<BrowserRouter>
+				<div className='App'>
+					<Routes>
+						<Route exact path='/' element={<Home />} />
+						<Route exact path='/login' element={<Login />} />
+					</Routes>
+				</div>
+			</BrowserRouter>
+		</UserContextProvider>
 	);
 }
 
