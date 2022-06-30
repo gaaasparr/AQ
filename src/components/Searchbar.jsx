@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Searchbar({onSearch}) {
+function Searchbar(props) {
   return (
     <>
-        <input onChange={onSearch} type="text" placeholder="Search" /> 
+        <input onChange={props.onSearch} type="text" placeholder="Search" /> 
     </>
   )
 }

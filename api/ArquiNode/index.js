@@ -11,11 +11,15 @@ app.use((req, res, next) => {
 	);
 
 	next();
-});
+}); //CORS
+
+app.use(express.json()); //middleware para parsear los json
 
 const getInfoAPI = async () => {
 	let productos = [];
-	let page = [1016, 1017, 1039, 1040,1042, 1045, 1047, 1049, 1051, 1052, 1053, 1054];
+	let page = [
+		1016, 1017, 1039, 1040, 1042, 1045, 1047, 1049, 1051, 1052, 1053, 1054,
+	];
 
 	for (let i = 0; i <= page.length; i++) {
 		if (productos.length > 300) {
@@ -49,36 +53,86 @@ const getInfoAPI = async () => {
 	return productosFormat;
 };
 
+let users = [
+	{
+		id: 1,
+		username: 'gaspar',
+		password: '1234',
+		products: [{ id: 1, title: 'producto 1' }],
+		buys: [],
+	},
+	{
+		id: 2,
+		username: 'brow',
+		password: '1111',
+		products: [],
+	},
+	{
+		id: 3,
+		username: 'pepe',
+		password: '123',
+		products: [],
+	},
+	{
+		id: 4,
+		username: 'test',
+		password: '452',
+		products: [],
+	},
+	{
+		id: 5,
+		username: 'hola123',
+		password: 'hola123',
+		products: [],
+	},
+];
+//users[0] === {id: 1, username: 'gaspar', password: '1234', products: [{id: 1, title: 'producto 1'}]}
+//users[0].id === 1
 
 app.get('/users', async (request, response) => {
 	try {
-		let users=[
-			{
-			id: 1,
-			username: 'gaspar',
-			password: '827ccb0eea8a706c4c34a16891f84e7b'
-			},
-			{
-			id: 2,
-			username: 'brow',
-			password: '1111'
-			},
-		]
-		response.send(users)
-		
+		response.send(users);
 	} catch (error) {
 		console.log(error);
 	}
 });
 
-app.get('/', async (request, response) => {
+app.post('/users', async (request, response) => {
 	try {
-		const api = await getInfoAPI();
-		response.send(api);
+		//console.log(request.body);
+		const { user } = request.body;
+		if (user.product) {
+			console.log(user);
+			const filtro = users.findIndex((e) => e.id == user.id); // busca el usuario en el array, comparo id numero con id string con doble igual
+			console.log(filtro);
+			const userfound = users[filtro];
+			userfound.products.push(user.product);
+			console.log(userfound);
+			response.send('producto agregado');
+		} else {
+			users = {
+				...users, //recupero el resto de los usuarios
+				[user.id]: {
+					id: user.id,
+					products: [],
+				}, //piso los productos con un array vacio
+			};
+			console.log(users);
+			response.send('compra realizada y carrito limpio');
+		}
 	} catch (error) {
 		console.log(error);
 	}
 });
+
+// app.get('/', async (request, response) => {
+// 	try {
+// 		const api = await getInfoAPI();
+// 		response.send(api);
+// 	} catch (error) {
+// 		console.log(error);
+// 	}
+// });
 
 app.get('/productos', async (request, response) => {
 	const title = request.query.title;
