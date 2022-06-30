@@ -4,12 +4,10 @@ import './App.css';
 import Login from './components/Login';
 import Home from './components/Home';
 
-import { UserContextProvider } from './contexts/UserContext';
 import ProductDetail from './components/ProductDetail';
 
 function App() {
 	return (
-		<UserContextProvider>
 			<BrowserRouter>
 				<div className='App'>
 					<Routes>
@@ -19,7 +17,7 @@ function App() {
 					</Routes>
 				</div>
 			</BrowserRouter>
-		</UserContextProvider>
+		
 	);
 }
 

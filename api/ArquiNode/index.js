@@ -49,6 +49,28 @@ const getInfoAPI = async () => {
 	return productosFormat;
 };
 
+
+app.get('/users', async (request, response) => {
+	try {
+		let users=[
+			{
+			id: 1,
+			username: 'gaspar',
+			password: '827ccb0eea8a706c4c34a16891f84e7b'
+			},
+			{
+			id: 2,
+			username: 'brow',
+			password: '1111'
+			},
+		]
+		response.send(users)
+		
+	} catch (error) {
+		console.log(error);
+	}
+});
+
 app.get('/', async (request, response) => {
 	try {
 		const api = await getInfoAPI();

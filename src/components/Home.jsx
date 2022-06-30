@@ -7,7 +7,6 @@ import s from './Home.module.css';
 import { Link } from 'react-router-dom';
 
 import Paginate from './Paginate';
-import Header from './Header';
 import Searchbar from './Searchbar';
 import ProductDetail from './ProductDetail';
 
@@ -55,9 +54,9 @@ export default function Home() {
         <>
         {/*<Link to='/a'><button>Agregar al Carrito</button></Link>*/}
         
-        <Header/>
+
         <Link to="/"><figure className={s.App_logo}><img alt="Logo" src="/logo.png" /></figure></Link>
-        <Searchbar onSearch={(e) => handleSearch(e)}/>
+        <Searchbar onSearch={(e) => handleSearch(e)}/>      {/*props*/}
         <button onClick={handleReload}>Reiniciar busqueda</button>
         <Paginate productsPerPage={productsPerPage} productos={productos.length} paginate={paginate}></Paginate>
         <div className={s.div_container}>

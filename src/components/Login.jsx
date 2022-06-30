@@ -1,48 +1,89 @@
-import React, {useState} from 'react';
-import {useLocation} from 'react-router-dom'
-import { useEffect } from "react";
-import useUser from './useUser';
+import React, {Component} from "react";
+import './Login.css'
+import axios from "axios";
+import md5 from "md5";
+import Cookies from "universal-cookie";
 
-import {login, isLogged} from './useUser'
-
-export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useLocation()
-  const {login, isLogged} = useUser()
+const baseUrl = "http://localhost:3001/users"
+const cookies = new Cookies();
 
 
+class Login extends Component {
+    state={
+        form:{
+            username: '',
+            password: ''
+        }
+    }
 
-  useEffect(() => {
-    if (isLogged) navigate('/')
-  }, [isLogged, navigate])
- 
-  const handleSubmit = (e) =>
-   {e.preventDefault();
-    //alert(`(${username}),(${password})`)\
-    login ()
+    handleChange=async e=>{
+        await this.setState({
+            form:{
+                ...this.state.form,
+                [e.target.name]: e.target.value
+            }
+        });
+    }
 
+    iniciarSesion=async()=>{
+        await axios.get(baseUrl, {params: {username: this.state.form.username, password: md5(this.state.form.password)}})
+        .then(response=>{
+            return response.data;
+        })
+        .then(response=>{
+            if(response.length>0){
+                var respuesta=response[0];
+                cookies.set('id', respuesta.id, {path: "/"});
+                cookies.set('nombre', respuesta.nombre, {path: "/"});
+                cookies.set('username', respuesta.username, {path: "/"});
+                alert(`Bienvenido ${respuesta.nombre} ${respuesta.apellido_paterno}`);
+                //window.location.href="./Home";
+            }else{
+                alert('El usuario o la contraseña no son correctos');
+            }
+        })
+        .catch(error=>{
+            console.log(error);
+        })
+
+    }
+
+//    componentDidMount() {
+//        if(cookies.get('username')){
+//           window.location.href="./Home";
+//        }
+//    }
     
 
-    };
-
-     return (
-          <form onSubmit={handleSubmit}>
-              <input
-                placeholder="username"
-                onChange={(e) => setUsername(e.target.value)}
-                value={username}
-              />
-              <input
-                type="password"
-                placeholder="password"
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
-              />
-             <button>Login</button>
-      
-           
-
-          </form>
-     );
+    render() {
+        return (
+    <div className="containerPrincipal">
+        <div className="containerSecundario">
+          <div className="form-group">
+            <label>Usuario: </label>
+            <br />
+            <input
+              type="text"
+              className="form-control"
+              name="username"
+              onChange={this.handleChange}
+            />
+            <br />
+            <label>Contraseña: </label>
+            <br />
+            <input
+              type="password"
+              className="form-control"
+              name="password"
+              onChange={this.handleChange}
+            />
+            <br />
+            <button className="btn btn-primary" onClick={()=> this.iniciarSesion()}>Iniciar Sesión</button>
+          </div>
+        </div>
+      </div>
+        );
+    }
 }
+
+export default Login;
